@@ -6,7 +6,7 @@ set -e
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
 SSH_CONFIG="$SCRIPT_DIR/ssh.config"
-GIT_CONFIG="$SCRIPT_DIR/git.config"
+GIT_CONFIG="$SCRIPT_DIR/.gitconfig"
 KEYS_DIR="$SCRIPT_DIR/keys"
 
 
@@ -62,15 +62,7 @@ sed \
 
 
 export GIT_SSH_COMMAND="ssh -F \"$TEMP_SSH_CONFIG\""
-
-
-export GIT_CONFIG_COUNT=2
-
-export GIT_CONFIG_KEY_0="user.name"
-export GIT_CONFIG_VALUE_0="$GIT_NAME"
-
-export GIT_CONFIG_KEY_1="user.email"
-export GIT_CONFIG_VALUE_1="$GIT_EMAIL"
+export GIT_CONFIG_GLOBAL="$GIT_CONFIG"
 
 echo
 echo "========================================"
