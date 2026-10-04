@@ -22,22 +22,11 @@ if [[ ! -f "$GIT_CONFIG" ]]; then
     exit 1
 fi
 
-# shellcheck disable=SC1090
-source "$GIT_CONFIG"
-
-if [[ -z "${GIT_NAME:-}" ]]; then
-    echo "Error: GIT_NAME is not set"
-    exit 1
-fi
-
-if [[ -z "${GIT_EMAIL:-}" ]]; then
-    echo "Error: GIT_EMAIL is not set"
-    exit 1
-fi
-
 
 TEMP_DIR="$(mktemp -d)"
 TEMP_KEYS_DIR="$TEMP_DIR/keys"
+mkdir $TEMP_KEYS_DIR
+
 TEMP_SSH_CONFIG="$TEMP_DIR/ssh-config"
 
 cleanup() {
@@ -69,8 +58,7 @@ echo "========================================"
 echo " Git USB environment"
 echo "========================================"
 echo
-echo " Git name   : $GIT_NAME"
-echo " Git email  : $GIT_EMAIL"
+echo " Git config : $GIT_CONFIG"
 echo " SSH config : $SSH_CONFIG"
 echo
 echo "SSH keys:"
