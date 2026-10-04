@@ -37,6 +37,7 @@ fi
 
 
 TEMP_DIR="$(mktemp -d)"
+TEMP_KEYS_DIR="$TEMP_DIR/keys"
 TEMP_SSH_CONFIG="$TEMP_DIR/ssh-config"
 
 cleanup() {
@@ -45,8 +46,17 @@ cleanup() {
 
 trap cleanup EXIT
 
+find "$KEYS_DIR" \
+    -maxdepth 1 \
+    -type f \
+    ! -name "*.pub" \
+    -exec cp -- {} "$TEMP_KEYS_DIR/" \;
+
+chmod 700 "$TEMP_KEYS_DIR"
+chmod 600 "$TEMP_KEYS_DIR"/*
+
 sed \
-    "s|%KEY_DIR%|$KEYS_DIR|g" \
+    "s|%KEY_DIR%|$TEMP_KEYS_DIR|g" \
     "$SSH_CONFIG" \
     > "$TEMP_SSH_CONFIG"
 
