@@ -63,12 +63,11 @@ echo " SSH config : $SSH_CONFIG"
 echo
 echo "SSH keys:"
 grep -E '^[[:space:]]*IdentityFile ' "$TEMP_SSH_CONFIG" \
-    | sed 's/^[[:space:]]*/  /'
+    | sed 's/^[[:space:]]*IdentityFile/  /'
 echo
 echo "Type 'exit' when finished."
 echo
 
 (
-    export PS1="[git-usb] \u@\h:\w\$ "
     exec "${SHELL:-/bin/bash}" -i
 )
