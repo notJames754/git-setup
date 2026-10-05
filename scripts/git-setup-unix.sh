@@ -5,9 +5,9 @@ set -e
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
-SSH_CONFIG="$SCRIPT_DIR/ssh.config"
-GIT_CONFIG="$SCRIPT_DIR/.gitconfig"
-KEYS_DIR="$SCRIPT_DIR/keys"
+SSH_CONFIG="$SCRIPT_DIR/../ssh.config"
+GIT_CONFIG="$SCRIPT_DIR/../.gitconfig"
+KEYS_DIR="$SCRIPT_DIR/../keys"
 
 
 if [[ ! -f "$SSH_CONFIG" ]]; then
