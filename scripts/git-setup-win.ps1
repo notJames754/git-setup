@@ -2,11 +2,11 @@ $ErrorActionPreference = "Stop"
 
 
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
-$ScriptDir = Split-Path -Parent $ScriptDir
+$RootDir = Split-Path -Parent $ScriptDir
 
-$SshConfig = Join-Path $ScriptDir "ssh.config"
-$GitConfig = Join-Path $ScriptDir ".gitconfig"
-$KeysDir   = Join-Path $ScriptDir "keys"
+$SshConfig = Join-Path $RootDir "ssh.config"
+$GitConfig = Join-Path $RootDir ".gitconfig"
+$KeysDir   = Join-Path $RootDir "keys"
 
 
 if (-not (Test-Path -LiteralPath $SshConfig -PathType Leaf)) {
