@@ -270,7 +270,7 @@ while true; do
         ssh-keygen \
             -t ed25519 \
             -f "$KEY_FILE" \
-            -C ""
+            -C " "
 
         echo
         echo "Key generated."
