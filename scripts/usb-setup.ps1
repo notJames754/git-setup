@@ -1,4 +1,4 @@
-#requires -Version 5.1
+#requires -Version 7
 
 # =============================================================================
 # Git USB Setup
@@ -372,7 +372,7 @@ Host $HostName
     Add-Content `
         -LiteralPath $SshConfig `
         -Value $SshHostEntry `
-        -Encoding UTF8
+        -Encoding utf8NoBOM
 
     Write-Host ""
     Write-Host "Added:"
