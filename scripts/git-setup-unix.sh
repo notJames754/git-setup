@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
-SSH_CONFIG="$SCRIPT_DIR/../ssh.config"
-GIT_CONFIG="$SCRIPT_DIR/../.gitconfig"
-KEYS_DIR="$SCRIPT_DIR/../keys"
+ROOT_DIR="$SCRIPT_DIR/.."
+
+SSH_CONFIG="$ROOT_DIR/ssh.config"
+GIT_CONFIG="$ROOT_DIR/.gitconfig"
+KEYS_DIR="$ROOT_DIR/keys"
 
 
 if [[ ! -f "$SSH_CONFIG" ]]; then
