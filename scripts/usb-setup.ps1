@@ -1,4 +1,4 @@
-#requires -Version 7
+#requires -Version 5.1
 
 # =============================================================================
 # Git USB Setup
@@ -64,6 +64,21 @@ function Ask-YesNo {
             }
         }
     }
+}
+
+function Write-SSH-Host {
+    $SshHostEntry = @"
+Host $HostName
+    HostName $HostAddr
+    User $HostUser
+    IdentityFile %KEY_DIR%/$KeyName
+    IdentitiesOnly yes
+"@
+    [System.IO.File]::AppendAllText(
+        $SshConfig,
+        $SshHostEntry,
+        [System.Text.UTF8Encoding]::new($false)
+    )
 }
 
 
@@ -203,12 +218,14 @@ $SshHeader = @'
 # Paths are relative placeholders. git-setup replaces %KEY_DIR% with
 # the keys directory when the environment is started.
 # ============================================================================
+
 '@
 
-Set-Content `
-    -LiteralPath $SshConfig `
-    -Value $SshHeader `
-    -Encoding UTF8
+[System.IO.File]::WriteAllText(
+    $SshConfig,
+    $SshHeader,
+    [System.Text.UTF8Encoding]::new($false)
+)
 
 Write-Host ""
 Write-Host "You can now configure multiple Git hosts."
@@ -300,6 +317,7 @@ while ($true) {
         Write-Host ""
 
         if (Ask-YesNo "Use this existing key?") {
+            Write-SSH-Host
             continue
         }
     }
@@ -336,7 +354,7 @@ while ($true) {
         Write-Host "You can copy an existing private key to:"
         Write-Host "  $KeyFile"
         Write-Host ""
-        Write-Host "Skipping $HostName for now."
+        Write-SSH-Host
         continue
     }
 
@@ -360,19 +378,7 @@ while ($true) {
         Write-Host "  $PublicKey"
     }
 
-    $SshHostEntry = @"
-
-Host $HostName
-    HostName $HostAddr
-    User $HostUser
-    IdentityFile %KEY_DIR%/$KeyName
-    IdentitiesOnly yes
-"@
-
-    Add-Content `
-        -LiteralPath $SshConfig `
-        -Value $SshHostEntry `
-        -Encoding utf8NoBOM
+    Write-SSH-Host
 
     Write-Host ""
     Write-Host "Added:"

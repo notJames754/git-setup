@@ -51,11 +51,11 @@ try {
         $KeyDirForSsh
     )
 
-    Set-Content `
-        -LiteralPath $TempSshConfig `
-        -Value $SshConfigContent `
-        -Encoding UTF8 `
-        -NoNewline
+    [System.IO.File]::WriteAllText(
+        $TempSshConfig,
+        $SshConfigContent,
+        [System.Text.UTF8Encoding]::new($false)
+    )
 
 
     $env:GIT_SSH_COMMAND = 'ssh -F "' + $TempSshConfig + '"'
