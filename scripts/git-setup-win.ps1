@@ -75,7 +75,7 @@ try {
     Get-Content -LiteralPath $TempSshConfig |
         Where-Object { $_ -match '^\s*IdentityFile\s+' } |
         ForEach-Object {
-            $_ -replace '^\s*IdentityFile', '  IdentityFile'
+            $_ -replace '^\s*IdentityFile', '  '
         }
 
     Write-Host ""
